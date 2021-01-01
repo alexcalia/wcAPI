@@ -22,7 +22,7 @@ router.get('/', verifyKey, async (req, res) => {
     } else if (classId && raceId) {
       // Find by class and race
       character = await Character.find({$and: [{'race': raceId}, {'class.id': classId}]});
-    }else if (factionId && raceId) {
+    } else if (factionId && raceId) {
       // Find by faction and race
       character = await Character.find({$and: [{'race': raceId}, {'faction.id': factionId}]});
     } else if (factionId) {
@@ -41,7 +41,7 @@ router.get('/', verifyKey, async (req, res) => {
 
     res.send(character);
   } catch (err) {
-    res.status(400).senmd(err);
+    res.status(400).send(err);
   }
   
 });

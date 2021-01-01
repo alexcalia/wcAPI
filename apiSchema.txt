@@ -1,0 +1,45 @@
+Characters
+{
+  "name": "Pat McStache",
+  "class": {
+    "id": "2002",
+    "name": "Warrior"    
+  },
+  "faction": {
+    "id": "1001",
+    "name": "Alliance"    
+  },
+  "race": "Gnome",
+  "description": "A really cool Warrior dude.",
+  "abilities": [
+    {
+      "name": "Whirlwind",
+      "description": "Spin furiously, swinging your weapons and damaging enemies around you."      
+    },
+    {
+      "name": "Shield Bash",
+      "description": "Bash the enemy with your shield, stunning and angering them."      
+    }    
+  ]  
+}
+
+Classes
+{
+  "id": "2002",
+  "name": "Mage",
+  "description": "Manipulates fire and frost elements, and arcane energies.",
+  "specializations": [
+    {
+      "name": "Fire",
+      "description": "A master of powerfaul Fire magic, hurling fireballs."      
+    },
+    {
+      "name": "Frost",
+      "description": "Bends the element of water into powerful frost magic."      
+    },
+    {
+      "name": "Arcane",
+      "description": "Controls arcane energies and bends time."      
+    }    
+  ]  
+}
