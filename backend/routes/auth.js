@@ -6,8 +6,8 @@ const hat = require('hat');
 const {registerValidation, loginValidation} = require('../validation');
 
 router.post('/register', async (req, res) => {
-
-  // Validation
+  
+  //Validation
   const {error} = registerValidation(req.body);
   if(error) return res.status(400).send(error.details[0].message);
   
@@ -16,7 +16,7 @@ router.post('/register', async (req, res) => {
   if(emailExist) return res.status(400).send('Email already exists');
 
   // Hash the password
-  const salt = await bcrypt.genSalt(process.env.SALT_SECRET);
+  const salt = await bcrypt.genSalt(16);
   const hashPassword = await bcrypt.hash(req.body.password, salt);
 
   // Create API key

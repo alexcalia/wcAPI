@@ -9,7 +9,7 @@ register.password = document.getElementById('password');
 
 register.submit = async (event) => {
   event.preventDefault();
-  const response = await fetch('localhost:3000/api/user/register', {
+  const response = await fetch('http://localhost:3000/api/user/register', {
     method: 'POST',
     body: {
       name: register.name.value,
