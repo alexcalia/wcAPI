@@ -12,7 +12,7 @@ const classesRoute = require('./routes/classes');
 dotenv.config();
 
 // Connect to DB
-mongoose.connect(process.env.DB_CONNECT, { useUnifiedTopology: true, useNewUrlParser: true }, () => console.log('Connected to DB'));
+mongoose.connect(`${process.env.DB_CONNECT}`, { useUnifiedTopology: true, useNewUrlParser: true }, () => console.log('Connected to DB'));
 
 // Middleware
 app.use(express.json());
