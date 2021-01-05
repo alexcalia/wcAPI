@@ -6,7 +6,6 @@ register.email = document.getElementById('email');
 register.password = document.getElementById('password');
 
 // Register submit
-
 register.submit = async (event) => {
   const data = {
       name: register.name.value,
