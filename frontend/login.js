@@ -3,6 +3,7 @@ const login = {}
 // Cache
 login.email = document.getElementById('email');
 login.password = document.getElementById('password');
+login.apikey = document.getElementById('apikey');
 
 login.loginRequest = (data) => {
   fetch('http://localhost:3000/api/user/login', {
@@ -13,7 +14,7 @@ login.loginRequest = (data) => {
     },
     body: JSON.stringify(data)
   }).then(response => response.text())
-  .then(response => console.log(response))
+  .then(response => login.apikey.innerHTML = `API Key: ${response}`)
 }
 
 //Login submit
