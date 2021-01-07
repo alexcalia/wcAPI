@@ -13,7 +13,7 @@ router.post('/register', async (req, res) => {
   
   // Check if a user exists in the database
   const emailExist = await User.findOne({email: req.body.email});
-  if(emailExist) return res.status(400).send('Email already exists');
+  if(emailExist) return res.status(400).send('An account with that email already exists.');
 
   // Hash the password
   const salt = await bcrypt.genSalt(16);
@@ -41,9 +41,6 @@ router.post('/register', async (req, res) => {
 
 // Login
 router.post('/login', async (req, res) => {
-  // Validation 
-  // const {error} = loginValidation(req.body);
-  // if(error) return res.status(400).send(error.details[0].message);
 
   // Check if a user exists in the database
   const user = await User.findOne({email: req.body.email});

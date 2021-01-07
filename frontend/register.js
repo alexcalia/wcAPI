@@ -4,9 +4,11 @@ const register = {};
 register.name = document.getElementById('name');
 register.email = document.getElementById('email');
 register.password = document.getElementById('password');
+register.result = document.getElementById('result');
 
 // Register submit
 register.registerRequest = (data) => {
+  let success = true;
   fetch('http://localhost:3000/api/user/register', {
     method: 'POST',
     mode: 'cors',
@@ -16,12 +18,20 @@ register.registerRequest = (data) => {
     body: JSON.stringify(data)
   }).then(response => {
     if (!response.ok) {
+      success = false;
       return response.text()
-    } else {
-      return response.json()
     }
   })
-  .then(response => console.log(response))
+  .then(response => {
+    if (!success) {
+      register.result.innerHTML = response
+    } else {
+      register.result.innerHTML = 'Account created succcessfully. Redirecting to the login page in 5 seconds...'
+      setTimeout(() => {
+        window.location.href = 'file:///c:/Users/alexm/Documents/javascript/wcAPI/frontend/login.html'
+      }, 5000);
+    }
+  })
 }
 
 //Register submit

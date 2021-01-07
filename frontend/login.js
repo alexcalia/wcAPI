@@ -23,9 +23,9 @@ login.loginRequest = (data) => {
   })
   .then(response => {
     if (!success) {
-      login.result.innerHTML = response
+      login.result.innerHTML = response;
     } else {
-      login.result.innerHTML = `API Key: ${response}`
+      login.result.innerHTML = `API Key: ${response}`;
     }
   });
 }
