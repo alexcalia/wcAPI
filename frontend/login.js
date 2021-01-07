@@ -3,9 +3,11 @@ const login = {}
 // Cache
 login.email = document.getElementById('email');
 login.password = document.getElementById('password');
-login.apikey = document.getElementById('apikey');
+login.result = document.getElementById('result');
 
 login.loginRequest = (data) => {
+  let success = true;
+
   fetch('http://localhost:3000/api/user/login', {
     method: 'POST',
     mode: 'cors',
@@ -13,8 +15,19 @@ login.loginRequest = (data) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
-  }).then(response => response.text())
-  .then(response => login.apikey.innerHTML = `API Key: ${response}`)
+  }).then(response => {
+    if (!response.ok) {
+      success = false;
+    }
+    return response.text()
+  })
+  .then(response => {
+    if (!success) {
+      login.result.innerHTML = response
+    } else {
+      login.result.innerHTML = `API Key: ${response}`
+    }
+  });
 }
 
 //Login submit
@@ -28,3 +41,9 @@ login.submit = (event) => {
 
   login.loginRequest(data);
 }
+
+// if (!response.ok) {
+//       login.result.innerHTML = response.text();
+//     } else {
+//       login.result.innerHTML = `API Key: ${response.text()}`
+//     }
