@@ -9,6 +9,7 @@ const authRoute = require('./routes/auth');
 const characterRoute = require('./routes/characters');
 const factionsRoute = require('./routes/factions');
 const classesRoute = require('./routes/classes');
+const racesRoute = require('./routes/races');
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use('/api/user', authRoute);
 app.use('/api/characters', characterRoute);
 app.use('/api/factions', factionsRoute);
 app.use('/api/classes', classesRoute);
+app.use('/api/races', racesRoute);
 
 // Start server
 app.listen(3000, () => console.log('Server is running on port 3000'));

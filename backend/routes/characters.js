@@ -17,19 +17,19 @@ router.get('/', verifyKey, async (req, res) => {
   try {
     if(factionId && classId && raceId) {
       // Find by class, race and faction
-      character = await Character.find({$and: [{'faction.id': factionId}, {'class.id': classId}, {'race': raceId}]});
+      character = await Character.find({$and: [{'faction.id': factionId}, {'class.id': classId}, {'race.id': raceId}]});
     } else if (factionId && classId) {
       // Find by faction and class
       character = await Character.find({$and: [{'faction.id': factionId}, {'class.id': classId}]});
     } else if (classId && raceId) {
       // Find by class and race
-      character = await Character.find({$and: [{'race': raceId}, {'class.id': classId}]});
+      character = await Character.find({$and: [{'race.id': raceId}, {'class.id': classId}]});
     } else if (factionId && raceId) {
       // Find by faction and race
-      character = await Character.find({$and: [{'race': raceId}, {'faction.id': factionId}]});
+      character = await Character.find({$and: [{'race.id': raceId}, {'faction.id': factionId}]});
     } else if (factionId || classId || raceId) {
       // Find by faction, or race, or class
-      character = await Character.find({$or: [{'faction.id': factionId}, {'class.id': classId}, {'race': raceId}]})
+      character = await Character.find({$or: [{'faction.id': factionId}, {'class.id': classId}, {'race.id': raceId}]})
     } else {
       // Find all chaarcters
       character = await Character.find({}).limit(limit ? limit : 4);
