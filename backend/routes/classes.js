@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { query } = require('express');
 const Classes = require('../model/Classes');
 const verifyKey = require('./verifyKey');
 
