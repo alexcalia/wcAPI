@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const hat = require('hat');
 const {registerValidation, loginValidation} = require('../validation');
 
+// Register
 router.post('/register', async (req, res) => {
   
   //Validation
@@ -54,6 +55,5 @@ router.post('/login', async (req, res) => {
   const token = jwt.sign({_id:user._id}, process.env.TOKEN_SECRET);
   res.header('auth-token', token).send(user.apikey);
 });
-
 
 module.exports = router;

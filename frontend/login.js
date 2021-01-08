@@ -41,9 +41,3 @@ login.submit = (event) => {
 
   login.loginRequest(data);
 }
-
-// if (!response.ok) {
-//       login.result.innerHTML = response.text();
-//     } else {
-//       login.result.innerHTML = `API Key: ${response.text()}`
-//     }
