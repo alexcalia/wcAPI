@@ -32,16 +32,21 @@ router.get('/', verifyKey, async (req, res) => {
       payload = await Character.find({$or: [{'faction.id': factionId}, {'class.id': classId}, {'race.id': raceId}]});
     } else if (cursor) {
       //Find all characters from cursor (pagination)
-      character = await Character.find({_id: { $gt: cursor}}).limit(limit ? limit : 4);
+      const decoded = parseInt(Buffer.from(cursor, 'base64').toString('binary'));
+      console.log(decoded);
+      character = await Character.find({id: { $gt: decoded}}).limit(limit ? limit : 4);
     } else {
       // Find all chaarcters
       character = await Character.find({}).limit(limit ? limit : 4);
-      console.log(character[0]._id)
+      const encodedPrev = Buffer.from(character[0].id.toString(), 'binary').toString('base64');
+      const nextCursor = character[character.length-1].id + 1
+      const encodedNext = Buffer.from(nextCursor.toString(), 'binary').toString('base64');
+      
       payload = {
         data: character, 
         cursor: {
-          previous: character[0]._id,
-          next: character[character.length-1]._id
+          previous: encodedPrev,
+          next: encodedNext
         }}
     }
 
