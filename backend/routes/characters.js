@@ -35,7 +35,7 @@ router.get('/', verifyKey, async (req, res) => {
       const decoded = parseInt(Buffer.from(cursor, 'base64').toString('binary'));
       console.log(decoded);
       character = await Character.find({id: { $gt: decoded}}).limit(limit ? limit : 4);
-    } else {
+    } else if (Object.keys(req.query).length === 0) {
       // Find all chaarcters
       character = await Character.find({}).limit(limit ? limit : 4);
       const encodedPrev = Buffer.from(character[0].id.toString(), 'binary').toString('base64');
@@ -48,6 +48,8 @@ router.get('/', verifyKey, async (req, res) => {
           previous: encodedPrev,
           next: encodedNext
         }}
+    } else {
+      res.status(400).send('Invalid query');
     }
 
     res.send(payload);
