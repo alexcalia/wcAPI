@@ -51,9 +51,17 @@ router.post('/login', async (req, res) => {
   const validPass = await bcrypt.compare(req.body.password, user.password);
   if (!validPass) return res.status(400).send('Email or password is wrong');
 
-  // Create and assign a token
-  const token = jwt.sign({_id:user._id}, process.env.TOKEN_SECRET);
-  res.header('auth-token', token).send(user.apikey);
+  // Create and assign an access token and refresh token, refresh token saved to DB, access token sent in cookie
+  const accessToken = jwt.sign({_id:user._id}, process.env.ACCESS_TOKEN_SECRET, {
+    algorithm: "HS256",
+    expiresIn: process.env.ACCESS_TOKEN_LIFE
+  });
+  const refreshToken = jwt.sign({_id:user._id}, process.env.REFRESH_TOKEN_SECRET, {
+    algorithm: "HS256",
+    expiresIn: process.env.REFRESH_TOKEN_LIFE
+  });
+  const updateUser = await user.update({refreshToken});
+  res.cookie('jwt', accessToken, {secure: true, httpOnly: true}).send(user.apikey);
 });
 
 module.exports = router;

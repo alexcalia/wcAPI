@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema({
 
   apikey: {
     type: String,
+  },
+
+  refreshToken: {
+    type: String
   }
 });
 

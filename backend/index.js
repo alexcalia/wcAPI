@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
@@ -19,6 +20,7 @@ mongoose.connect(process.env.DB_CONNECT, {useNewUrlParser: true, useUnifiedTopol
 // Middleware
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
 
 // Route Middlewares
 app.use('/api/user', authRoute);
