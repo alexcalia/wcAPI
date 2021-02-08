@@ -11,7 +11,6 @@ const characterRoute = require('./routes/characters');
 const factionsRoute = require('./routes/factions');
 const classesRoute = require('./routes/classes');
 const racesRoute = require('./routes/races');
-const sitesRoute = require('./routes/sites');
 
 dotenv.config();
 
@@ -19,17 +18,17 @@ dotenv.config();
 mongoose.connect(process.env.DB_CONNECT, {useNewUrlParser: true, useUnifiedTopology: true}).catch(error => console.log(error));
 
 // Middleware
-app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
+app.use(express.json());
 
 // Route Middlewares
-app.use('/', sitesRoute);
 app.use('/api/user', authRoute);
 app.use('/api/characters', characterRoute);
 app.use('/api/factions', factionsRoute);
 app.use('/api/classes', classesRoute);
 app.use('/api/races', racesRoute);
+app.use(express.static('frontend'));
 
 // Start server
 app.listen(3000, () => console.log('Server is running on port 3000'));

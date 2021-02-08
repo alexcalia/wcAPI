@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken');
 const hat = require('hat');
 const {registerValidation, loginValidation} = require('../validation');
 
+const verifyToken = require('./verifyToken');
+
 // Register
 router.post('/register', async (req, res) => {
   
@@ -60,8 +62,14 @@ router.post('/login', async (req, res) => {
     algorithm: "HS256",
     expiresIn: process.env.REFRESH_TOKEN_LIFE
   });
-  const updateUser = await user.update({refreshToken});
-  res.cookie('jwt', accessToken, {secure: true, httpOnly: true}).send(user.apikey);
+  const updateUser = await user.updateOne({refreshToken});
+  res.cookie('jwt', accessToken, {httpOnly: true});
+  res.send(user.apikey);
+});
+
+router.get('/account', verifyToken, async (req, res) => {
+  const user = await User.findOne({_id: req.user});
+  res.status(200).send(user);
 });
 
 module.exports = router;
