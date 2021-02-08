@@ -1,24 +1,27 @@
 Characters
 {
-  "name": "Pat McStache",
+  "name": "",
   "class": {
-    "id": "2002",
-    "name": "Warrior"    
+    "id": "",
+    "name": ""    
   },
   "faction": {
-    "id": "1001",
-    "name": "Alliance"    
+    "id": "",
+    "name": ""    
   },
-  "race": "Gnome",
-  "description": "A really cool Warrior dude.",
+  "race": {
+    "id": "",
+    "name": ""    
+  },
+  "description": "",
   "abilities": [
     {
-      "name": "Whirlwind",
-      "description": "Spin furiously, swinging your weapons and damaging enemies around you."      
+      "name": "",
+      "description": ""      
     },
     {
-      "name": "Shield Bash",
-      "description": "Bash the enemy with your shield, stunning and angering them."      
+      "name": "",
+      "description": ""      
     }    
   ]  
 }

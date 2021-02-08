@@ -28,7 +28,7 @@ register.registerRequest = (data) => {
     } else {
       register.result.innerHTML = 'Account created succcessfully. Redirecting to the login page in 5 seconds...'
       setTimeout(() => {
-        window.location.href = 'file:///c:/Users/alexm/Documents/javascript/wcAPI/frontend/login.html'
+        window.location.href = 'http://localhost:3000/login'
       }, 5000);
     }
   })

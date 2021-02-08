@@ -14,6 +14,7 @@ login.loginRequest = (data) => {
     headers: {
       'Content-Type': 'application/json'
     },
+    credentials: 'include',
     body: JSON.stringify(data)
   }).then(response => {
     if (!response.ok) {
