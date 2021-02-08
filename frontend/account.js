@@ -5,12 +5,17 @@ account.apiKey = document.getElementById('apiKey');
 account.userID = document.getElementById('userID');
 
 account.getAccount = () => {
+  console.log('page refreshed');
   fetch('http://localhost:3000/api/user/account', {
     method: 'GET',
     credentials: 'include'
   })
   .then(response => {
-    return response.json()
+    if (!response.ok) {
+      account.greeting.innerHTML = 'Login session has expired, please login again';
+    } else {
+      return response.json()
+    }
   })
   .then(response => {
     account.greeting.innerHTML = `Welcome, ${response.name}`;
