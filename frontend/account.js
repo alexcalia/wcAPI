@@ -7,10 +7,18 @@ account.userID = document.getElementById('userID');
 account.getAccount = () => {
   fetch('http://localhost:3000/api/user/account', {
     method: 'GET',
-    credentials: 'same-origin'
+    credentials: 'include'
   })
   .then(response => {
-    console.log(response);
+    return response.json()
+  })
+  .then(response => {
+    account.greeting.innerHTML = `Welcome, ${response.name}`;
+    account.apiKey.innerHTML = response.apikey;
+    account.userID.innerHTML = response.email;
+  })
+  .catch(err => {
+    console.log(err)
   })
 }
 

@@ -68,7 +68,7 @@ router.post('/login', async (req, res) => {
 });
 
 router.get('/account', verifyToken, async (req, res) => {
-  const user = await User.findOne({_id: req.user});
+  const user = await User.findOne({_id: req.user._id});
   res.status(200).send(user);
 });
 
