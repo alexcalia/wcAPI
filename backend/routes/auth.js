@@ -83,7 +83,7 @@ router.get('/refresh_token', verifyRefresh, async (req, res) => {
     algorithm: "HS256",
     expiresIn: "120m"
   });
-
+  res.cookie('jwt', accessToken, {httpOnly: true}).cookie('rjwt', refreshToken, {httpOnly: true}).send();
 });
 
 module.exports = router;
