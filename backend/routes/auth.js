@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const hat = require('hat');
 const {registerValidation, loginValidation} = require('../validation');
 
-const verifyToken = require('./verifyToken');
+const {verifyAccess, verifyRefresh} = require('./verifyToken');
 
 // Register
 router.post('/register', async (req, res) => {
@@ -56,20 +56,34 @@ router.post('/login', async (req, res) => {
   // Create and assign an access token and refresh token, refresh token saved to DB, access token sent in cookie
   const accessToken = jwt.sign({_id:user._id}, process.env.ACCESS_TOKEN_SECRET, {
     algorithm: "HS256",
-    expiresIn: process.env.ACCESS_TOKEN_LIFE
+    expiresIn: "15m"
   });
   const refreshToken = jwt.sign({_id:user._id}, process.env.REFRESH_TOKEN_SECRET, {
     algorithm: "HS256",
-    expiresIn: process.env.REFRESH_TOKEN_LIFE
+    expiresIn: "120m"
   });
-  const updateUser = await user.updateOne({refreshToken});
+  
   res.cookie('jwt', accessToken, {httpOnly: true});
+  res.cookie('rjwt', refreshToken, {httpOnly: true});
   res.send(user.apikey);
 });
 
-router.get('/account', verifyToken, async (req, res) => {
+router.get('/account', verifyAccess, async (req, res) => {
   const user = await User.findOne({_id: req.user._id});
   res.status(200).send(user);
+});
+
+router.get('/refresh_token', verifyRefresh, async (req, res) => {
+   // Create and assign an access token and refresh token, refresh token saved to DB, access token sent in cookie
+  const accessToken = jwt.sign({_id:req.user._id}, process.env.ACCESS_TOKEN_SECRET, {
+    algorithm: "HS256",
+    expiresIn: "15m"
+  });
+  const refreshToken = jwt.sign({_id:req.user._id}, process.env.REFRESH_TOKEN_SECRET, {
+    algorithm: "HS256",
+    expiresIn: "120m"
+  });
+
 });
 
 module.exports = router;
